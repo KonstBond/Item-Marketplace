@@ -1,26 +1,17 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore;
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+namespace Item_Marketplace.Api
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateHost(args).Run();
+        }
+
+        public static IWebHost CreateHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+            .UseStartup<ItemMarketplaceStartup>()
+            .Build();
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
