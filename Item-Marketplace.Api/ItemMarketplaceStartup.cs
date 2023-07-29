@@ -1,4 +1,10 @@
-﻿namespace Item_Marketplace.Api
+﻿using Item_Marketplace.Auction.Dal.EFCoreSettings;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using System;
+
+namespace Item_Marketplace.Api
 {
     public class ItemMarketplaceStartup
     {
@@ -7,10 +13,17 @@
             services.AddRouting();
             services.AddControllers();
             services.AddApiVersioning();
-            
+
             //swagger
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+
+            string connectionString =
+                Environment.GetEnvironmentVariable("MY_DB_CONNECTION")
+                ?? throw new ArgumentNullException(nameof(connectionString), "Не может быть null");
+
+            services.AddDbContext<AuctionDbContext>(options =>
+                options.UseSqlServer(connectionString));
         }
 
         public void Configure(IApplicationBuilder app)
@@ -20,13 +33,6 @@
 
             app.UseSwagger();
             app.UseSwaggerUI();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "api",
-                    pattern: "api/v{version:apiVersion}/[controller]/[action]");
-            });
         }
     }
 }

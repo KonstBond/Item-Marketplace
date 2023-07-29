@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>Item_Marketplace.Bll</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Item-Marketplace.Aplication\Item-Marketplace.Aplication.csproj" />
+    <ProjectReference Include="..\Item-Marketplace.Auction.Dal\Item-Marketplace.Auction.Dal.csproj" />
+  </ItemGroup>
+
+</Project>
